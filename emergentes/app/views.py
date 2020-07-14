@@ -47,8 +47,8 @@ def test(req):
             }
         ]
     }
-    idArt = inventario.insert_one(articulo).inserted_id
-    print(idArt)
+    # idArt = inventario.insert_one(articulo).inserted_id
+    # print(idArt)
     items = inventario.find()
     context = {'title': 'App Emergentes', 'items': items}
     return render(req, 'app.html', context)
