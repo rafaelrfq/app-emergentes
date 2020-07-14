@@ -1,0 +1,16 @@
+https://api.mongodb.com/python/current/tutorial.html
+
+- Opcion de registro de movimientos de inventario (entradas y salidas).
+- Definir los suplidores que suplen cada componente asi como su tiempo de entrega.
+- Hacer un proceso que genere una orden de compra automaticamente cuando:
+
+Una opción para especificar las partes de una computadora y cantidad que deseo tener en inventario en una fecha determinada.
+
+Con estos datos generar la ordenes de compras tomando en cuenta que cantidad debo tener en inventario y el tiempo que tarda cada suplidor en entregar la misma.
+
+El proceso debe seleccionar el suplidor con menor fecha de entrega para cada componente.
+
+Se deben generar ordenes por cada Suplidor, es decir, si se especifican 2 partes de computadora y cada una es suplida por diferentes proveedores, entonces, se debe
+generar una orden para cada uno.
+
+Al final mostrar la(s) orden(es) generada(s), el Suplidor y Fecha en la que debo ordenar cada parte de la PC. 

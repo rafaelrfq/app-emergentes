@@ -1,0 +1,31 @@
+{% extends "./base.html" %}
+
+{% block content %}
+    <h1>Ordenes</h1>
+    <br><br>
+    <h4>Listado de Articulos</h4>
+    <br>
+    <table class="table table-borderless">
+        <thead class="border-bottom font-weight-bold">
+            <tr>
+                <th>Componente</th>
+                <th>Descripcion</th>
+                <th>Cantidad</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if articulos %}
+                {% for articulo in articulos %}
+                    <tr>
+                        <td>{{articulo.codigoArticulo}}</td>
+                        <td>{{articulo.descripcion}}</td>
+                        <td><input type="number" min="1"></td>
+                        <td>5580</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+
+    </table>
+{% endblock content %}
