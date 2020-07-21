@@ -1,0 +1,37 @@
+{% extends "./base.html" %}
+{% block content %}
+    <h2>Registrar Movimiento de Inventario</h2>
+    <form action="/" method="post">
+        {% csrf_token %}
+        <br><br>
+        {{form.as_p}}
+        <input type="submit" value="Submit">
+    </form>
+    <br><br>
+    <table class="table table-borderless">
+        <thead class="border-bottom font-weight-bold">
+            <tr>
+                <th>Codigo Movimiento</th>
+                <th>Codigo Almacen</th>
+                <th>Tipo Movimiento</th>
+                <th>Componente</th>
+                <th>Cantidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if movimientos %}
+                {% for movimiento in movimientos %}
+                    <tr>
+                        <td>{{movimiento.codigoMovimiento}}</td>
+                        <td>{{movimiento.codigoAlmacen}}</td>
+                        <td>{{movimiento.tipoMovimiento}}</td>
+                        <td>{{movimiento.codigoArticulo}}</td>
+                        <td>{{movimiento.cantidad}}</td>
+                        <td><a href="{% url 'mov_delete' movimiento.codigoMovimiento %}" class="btn btn-outline-danger">Eliminar</a></td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock content %}

@@ -1,0 +1,39 @@
+{% extends './base.html' %}
+{% block content %}
+    <h2>Registrar Movimiento de Inventario</h2>
+    <form action="/articulo/" method="post">
+        {% csrf_token %}
+        <br><br>
+        {{form.as_p}}
+        <input type="submit" value="Submit">
+    </form>
+    <br><br>
+    <table class="table table-borderless">
+        <thead class="border-bottom font-weight-bold">
+            <tr>
+                <th>Componente</th>
+                <th>Descripcion</th>
+                <th>Almacen y Balance</th>
+                <th>Unidad Compra</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if articulos %}
+                {% for articulo in articulos %}
+                    <tr>
+                        <td>{{articulo.codigoArticulo}}</td>
+                        <td>{{articulo.descripcion}}</td>
+                        {% if articulo.infoAlmacen %}
+                            {% for info in articulo.infoAlmacen %}
+                                <td>Almacen: {{info.codigoAlmacen}}<br>Balance: {{info.balanceActual}}</td>
+                            {% endfor %}
+                        {% endif %}
+                        <td>{{articulo.unidadCompra}}</td>
+                        <td><a href="{% url 'articulo_delete' articulo.codigoArticulo %}" class="btn btn-outline-danger">Eliminar</a></td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock content %}
