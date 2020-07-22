@@ -16,6 +16,7 @@
                 <th>Tipo Movimiento</th>
                 <th>Componente</th>
                 <th>Cantidad</th>
+                <th>Fecha Movimiento</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -28,6 +29,7 @@
                         <td>{{movimiento.tipoMovimiento}}</td>
                         <td>{{movimiento.codigoArticulo}}</td>
                         <td>{{movimiento.cantidad}}</td>
+                        <td>{{movimiento.fechaMovimiento}}</td>
                         <td><a href="{% url 'mov_delete' movimiento.codigoMovimiento %}" class="btn btn-outline-danger">Eliminar</a></td>
                     </tr>
                 {% endfor %}

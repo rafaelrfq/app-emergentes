@@ -4,7 +4,7 @@ from pymongo import MongoClient
 client = MongoClient('mongodb://localhost:27017/')
 db = client.emergentes
 inventario = db.inventario
-#inventario.find({}, { "_id": 0,"codigoArticulo": 1 })
+suplidores = db.suplidores
 tipos = [
     ('ENTRADA', "Entrada"),
     ('SALIDA', "Salida")
@@ -15,11 +15,14 @@ almacenes = [
 ]
 
 def convertir(x):
-    resultado = []
+    resultado = [ ('', 'Seleccione') ]
     for item in x:
         tupla = tuple([item, item])
         resultado.append(tupla)
     return resultado
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 class ArticuloForm(forms.Form):
     codigoArticulo = forms.CharField(label='Codigo Articulo', max_length=15)
@@ -31,9 +34,18 @@ class MovimientoForm(forms.Form):
     tipoMovimiento = forms.ChoiceField(choices=tipos)
     codigoArticulo = forms.ChoiceField(choices=convertir(ob.get('codigoArticulo') for ob in inventario.find({}, { "_id": 0,"codigoArticulo": 1 })))
     cantidad = forms.IntegerField(min_value=1)
+    fechaMovimiento = forms.DateField(widget = DateInput)
 
 class SuplidorForm(forms.Form):
     codigoArticulo = forms.ChoiceField(choices=convertir(ob.get('codigoArticulo') for ob in inventario.find({}, { "_id": 0,"codigoArticulo": 1 })))
     codigoSuplidor = forms.CharField(label='Codigo Suplidor', max_length=50)
     tiempoEntrega = forms.IntegerField(label='Tiempo Entrega (dias)', min_value=1)
     precioCompra = forms.FloatField(label='Precio Compra (RD$)' ,min_value=0.01)
+
+class OrdenCompraForm(forms.Form):
+    codigoSuplidor = forms.ChoiceField(choices=convertir(ob.get('codigoSuplidor') for ob in suplidores.find({}, {"_id": 0, "codigoSuplidor": 1})))
+    fechaOrden = forms.DateField(widget= DateInput)
+
+class ArticulosCompraForm(forms.Form):
+    codigoArticulo = forms.ChoiceField(choices=convertir(ob.get('codigoArticulo') for ob in inventario.find({}, { "_id": 0,"codigoArticulo": 1 })))
+    cantidadOrdenada = forms.IntegerField(label='Cantidad', min_value=1)

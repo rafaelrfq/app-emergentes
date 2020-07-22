@@ -1,26 +1,45 @@
 {% extends "./base.html" %}
 {% block content %}
-    <h1>Ordenes</h1>
-    <br><br>
-    <h4>Listado de Articulos</h4>
-    <br>
+    <h1>Registrar Ordenes de Compra</h1>
+    <form action="/ordenes/" method="post">
+        {% csrf_token %}
+        <br><br>
+        {{form.as_p}}
+        {% for forms in formset %}
+            <br>
+            {{formset.management_form}}
+            {{forms.as_p}}
+        {% endfor %}
+        <input type="submit" value="Submit">
+    </form>
     <table class="table table-borderless">
         <thead class="border-bottom font-weight-bold">
             <tr>
-                <th>Componente</th>
-                <th>Descripcion</th>
-                <th>Cantidad</th>
-                <th>Balance</th>
+                <th>Codigo Orden</th>
+                <th>Suplidor</th>
+                <th>Fecha Orden</th>
+                <th>Monto Total</th>
+                <th>Articulos</th>
             </tr>
         </thead>
         <tbody>
-            {% if articulos %}
-                {% for articulo in articulos %}
+            {% if ordenes %}
+                {% for orden in ordenes %}
                     <tr>
-                        <td>{{articulo.codigoArticulo}}</td>
-                        <td>{{articulo.descripcion}}</td>
-                        <td><input type="number" min="1"></td>
-                        <td>5580</td>
+                        <td>{{orden.codigoOrdenCompra}}</td>
+                        <td>{{orden.codigoSuplidor}}</td>
+                        <td>{{orden.fechaOrden}}</td>
+                        <td>{{orden.montoTotal}}</td>
+                        <td>
+                        {% if orden.articulos %}
+                            {% for articulos in orden.articulos %}
+                                Componente: {{articulos.codigoArticulo}}<br>
+                                Cantidad: {{articulos.cantidadOrdenada}}<br>
+                                Unidad Compra: {{articulos.unidadCompra}}<br>
+                                Precio: {{articulos.precioCompra}}
+                            {% endfor %}
+                        {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
             {% endif %}
