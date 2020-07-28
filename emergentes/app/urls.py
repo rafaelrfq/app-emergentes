@@ -9,4 +9,6 @@ urlpatterns = [
     path('articulo/<str:id>', views.articuloDelete, name='articulo_delete'),
     path('suplidor/', views.suplidor, name='suplidor'),
     path('suplidor/<str:id>', views.suplidorDelete, name='suplidor_delete'),
+    path('ordenauto/', views.articulosPreliminares, name='preliminares'),
+    path('ordenauto/realizar', views.realizarOrdenAuto, name='orden_auto'),
 ]

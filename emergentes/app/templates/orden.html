@@ -12,7 +12,7 @@
         {% endfor %}
         <input type="submit" value="Submit">
     </form>
-    <table class="table table-borderless">
+    <table class="table table-bordered">
         <thead class="border-bottom font-weight-bold">
             <tr>
                 <th>Codigo Orden</th>
@@ -36,7 +36,7 @@
                                 Componente: {{articulos.codigoArticulo}}<br>
                                 Cantidad: {{articulos.cantidadOrdenada}}<br>
                                 Unidad Compra: {{articulos.unidadCompra}}<br>
-                                Precio: {{articulos.precioCompra}}
+                                Precio: {{articulos.precioCompra}}<hr>
                             {% endfor %}
                         {% endif %}
                         </td>

@@ -43,9 +43,16 @@ class SuplidorForm(forms.Form):
     precioCompra = forms.FloatField(label='Precio Compra (RD$)' ,min_value=0.01)
 
 class OrdenCompraForm(forms.Form):
-    codigoSuplidor = forms.ChoiceField(choices=convertir(ob.get('codigoSuplidor') for ob in suplidores.find({}, {"_id": 0, "codigoSuplidor": 1})))
+    codigoSuplidor = forms.ChoiceField(choices=convertir(suplidores.distinct("codigoSuplidor")))
     fechaOrden = forms.DateField(widget= DateInput)
 
 class ArticulosCompraForm(forms.Form):
     codigoArticulo = forms.ChoiceField(choices=convertir(ob.get('codigoArticulo') for ob in inventario.find({}, { "_id": 0,"codigoArticulo": 1 })))
     cantidadOrdenada = forms.IntegerField(label='Cantidad', min_value=1)
+
+class ArticulosPreliminaresForm(forms.Form):
+    codigoArticulo = forms.ChoiceField(label='Componente', choices=convertir(ob.get('codigoArticulo') for ob in inventario.find({}, { "_id": 0,"codigoArticulo": 1 })))
+    cantidad = forms.IntegerField(min_value=1)
+
+class OrdenAutomaticaForm(forms.Form):
+    fechaRequerida = forms.DateField(label='Fecha Requerida', widget = DateInput)

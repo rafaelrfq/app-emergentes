@@ -1,0 +1,36 @@
+{% extends "./base.html" %}
+{% block content %}
+    <h1>Automatizar Orden de Compra</h1>
+    <form action="/ordenauto/" method="post">
+        {% csrf_token %}
+        <br><br>
+        {{form.as_p}}
+        <input type="submit" value="Agregar">
+    </form>
+    <form action="/ordenauto/realizar" method="post">
+        {% csrf_token %}
+        <br><br>
+        {{form1.as_p}}
+        <input type="submit" value="Generar Orden">
+    </form><br>
+    <table class="table table-bordered">
+        <thead class="border-bottom font-weight-bold">
+            <tr>
+                <th>Componente</th>
+                <th>Descripcion</th>
+                <th>Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if articulosPre %}
+                {% for articulo in articulosPre %}
+                    <tr>
+                        <td>{{articulo.codigoArticulo}}</td>
+                        <td>{{articulo.descripcion}}</td>
+                        <td>{{articulo.cantidad}}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock content %}
