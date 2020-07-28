@@ -246,6 +246,16 @@ def realizarOrdenAuto(req):
             articulosPre.clear()
     return redirect('/ordenauto')
 
+def listarOrdenesAgrupadas(req):
+    pipeline = [
+        { '$project': { '_id':0, 'codigoOrdenCompra': 0 } },
+        { '$group': { '_id': { 'Suplidor': "$codigoSuplidor", 'Fecha': "$fechaOrden" }, 'MontoTotal': { '$sum': "$montoTotal" }, 'Articulos': { "$addToSet": "$articulos" } } },
+        { '$project': { '_id':0, 'Suplidor': "$_id.Suplidor", 'Fecha': "$_id.Fecha", 'MontoTotal': "$MontoTotal", 'Articulos': "$Articulos" } }
+    ]
+    agrupadas = ordenes.aggregate(pipeline)
+    context = { 'title': 'Listado Agrupado de Ordenes', 'ordenes': agrupadas }
+    return render(req, 'ordenes_agrupadas.html', context)
+
 def disponibilidad(diffFecha):
     avg = []
     for item in articulosPre:
@@ -344,6 +354,12 @@ def buscarMejorSuplidor(art, diffFecha):
     #     { $project: { _id:0, codigoSuplidor:1 } }
     # ])
 
+    # Agrupacion de ordenes por suplidor y fecha
+    # db.ordenes.aggregate([
+    #     { $project: { _id:0, codigoOrdenCompra: 0 } },
+    #     { $group: { _id: { Suplidor: "$codigoSuplidor", Fecha: "$fechaOrden" }, MontoTotal: { $sum: "$montoTotal" }, Articulos: { "$addToSet": "$articulos" } } },
+    #     { $project: { _id:0, Suplidor: "$_id.Suplidor", Fecha: "$_id.Fecha", MontoTotal: "$MontoTotal", Articulos: "$Articulos" } }
+    # ])
 
 
 # ventasdiarias = lo que retorna el aggregate de arriba

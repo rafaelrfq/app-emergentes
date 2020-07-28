@@ -1,0 +1,39 @@
+{% extends "./base.html" %}
+{% block content %}
+    <h1>{{title}}</h1><hr>
+    <table class="table table-bordered">
+        <thead class="border-bottom font-weight-bold">
+            <tr>
+                <th>Suplidor</th>
+                <th>Fecha Orden</th>
+                <th>Monto Total</th>
+                <th>Articulos</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if ordenes %}
+                {% for orden in ordenes %}
+                    <tr>
+                        <td>{{orden.Suplidor}}</td>
+                        <td>{{orden.Fecha}}</td>
+                        <td>{{orden.MontoTotal}}</td>
+                        <td>
+                        {% if orden.Articulos %}
+                            {% for articulos in orden.Articulos %}
+                                {% if articulos %}
+                                    {% for art in articulos %}
+                                        Componente: {{art.codigoArticulo}}<br>
+                                        Cantidad: {{art.cantidadOrdenada}}<br>
+                                        Unidad Compra: {{art.unidadCompra}}<br>
+                                        Precio: {{art.precioCompra}}<hr>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock content %}

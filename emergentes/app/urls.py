@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.inventory, name='inventario'),
     path('<int:id>', views.movimientoDelete, name='mov_delete'),
     path('ordenes/', views.ordenCompra, name='orden'),
+    path('ordenes_agrupadas/', views.listarOrdenesAgrupadas, name='ordenes_agrupadas'),
     path('articulo/', views.articulo, name='articulo'),
     path('articulo/<str:id>', views.articuloDelete, name='articulo_delete'),
     path('suplidor/', views.suplidor, name='suplidor'),

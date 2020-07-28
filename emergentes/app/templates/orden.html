@@ -11,7 +11,10 @@
             {{forms.as_p}}
         {% endfor %}
         <input type="submit" value="Submit">
-    </form>
+    </form><br>
+    <div>
+        <a href="{% url 'ordenes_agrupadas' %}" class="btn btn-outline-success">Ver Ordenes Agrupadas</a>
+    </div><br>
     <table class="table table-bordered">
         <thead class="border-bottom font-weight-bold">
             <tr>
